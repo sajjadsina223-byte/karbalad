@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6c4cf1">
+    <meta name="description" content="کاربلد؛ سامانه معرفی مشاغل، متخصصان و کسب‌وکارها">
+    <title>کاربلد | هر تخصص، یک قدم نزدیک‌تر</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav">
+        <a href="#" class="logo"><span class="logo-icon">✦</span> کاربلد<span class="logo-dot">.</span></a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="باز کردن منو">☰</button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">صفحه اصلی</a>
+            <a href="#categories">دسته‌بندی‌ها</a>
+            <a href="#businesses">مشاغل</a>
+            <a href="#about">درباره ما</a>
+        </nav>
+
+        <button class="btn btn-primary admin-open" id="adminOpen">⚙ پنل مدیریت</button>
+    </div>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="hero-shape shape-one"></div>
+        <div class="hero-shape shape-two"></div>
+
+        <div class="container hero-content">
+            <div class="hero-text reveal">
+                <span class="eyebrow">🌈 دنیایی از تخصص و اعتماد</span>
+                <h1>آدم درست را<br>برای <span>کار درست</span> پیدا کن!</h1>
+                <p>از تعمیرکار و آرایشگر تا پزشک، فروشگاه و متخصصان حرفه‌ای؛ آنچه نیاز داری، همین نزدیکی است.</p>
+
+                <form class="search-box" id="searchForm">
+                    <span class="search-icon">⌕</span>
+                    <input id="searchInput" type="search"
+                           placeholder="مثلاً تعمیرکار، آرایشگر، فروشگاه..."
+                           aria-label="جست‌وجوی شغل یا متخصص">
+                    <button class="btn btn-primary" type="submit">جست‌وجو</button>
+                </form>
+
+                <div class="popular-searches">
+                    <span>جست‌وجوهای محبوب:</span>
+                    <button class="search-tag" data-search="تعمیرکار">تعمیرکار</button>
+                    <button class="search-tag" data-search="آرایشگر">آرایشگر</button>
+                    <button class="search-tag" data-search="آموزش">آموزش</button>
+                </div>
+            </div>
+
+            <div class="hero-visual reveal">
+                <div class="hero-illustration">
+                    <div class="illustration-orbit orbit-one"></div>
+                    <div class="illustration-orbit orbit-two"></div>
+                    <div class="illustration-center">🤝</div>
+                    <div class="floating-card float-a"><span>🛠️</span> خدمات فنی</div>
+                    <div class="floating-card float-b"><span>🎨</span> هنر و زیبایی</div>
+                    <div class="floating-card float-c"><span>🛍️</span> خرید محلی</div>
+                    <div class="floating-emoji emoji-a">✨</div>
+                    <div class="floating-emoji emoji-b">💜</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container stats">
+            <div class="stat-item"><strong id="statBusinesses">۰</strong><span>کسب‌وکار ثبت‌شده</span></div>
+            <div class="stat-item"><strong>۱۰+</strong><span>دسته‌بندی شغلی</span></div>
+            <div class="stat-item"><strong>۲۴/۷</strong><span>دسترسی آسان</span></div>
+        </div>
+    </section>
+
+    <section class="section categories-section" id="categories">
+        <div class="container">
+            <div class="section-heading reveal">
+                <div>
+                    <span class="eyebrow">انتخاب با توست</span>
+                    <h2>دنبال چه چیزی هستی؟</h2>
+                    <p>از میان دسته‌بندی‌های متنوع، مسیرت را انتخاب کن.</p>
+                </div>
+            </div>
+
+            <div class="category-grid" id="categoryGrid">
+                <button class="category-card active" data-category="همه">
+                    <span class="category-icon purple">🌟</span><strong>همه مشاغل</strong><small>تمام تخصص‌ها</small>
+                </button>
+                <button class="category-card" data-category="فنی">
+                    <span class="category-icon orange">🔧</span><strong>فنی و تعمیرات</strong><small>تعمیر و نصب</small>
+                </button>
+                <button class="category-card" data-category="زیبایی">
+                    <span class="category-icon pink">💇</span><strong>زیبایی و آرایش</strong><small>زیبایی و مراقبت</small>
+                </button>
+                <button class="category-card" data-category="آموزش">
+                    <span class="category-icon blue">📚</span><strong>آموزش</strong><small>یادگیری و تدریس</small>
+                </button>
+                <button class="category-card" data-category="سلامت">
+                    <span class="category-icon green">🩺</span><strong>سلامت</strong><small>خدمات سلامت</small>
+                </button>
+                <button class="category-card" data-category="فروشگاه">
+                    <span class="category-icon yellow">🛒</span><strong>فروشگاه‌ها</strong><small>خرید و فروش</small>
+                </button>
+                <button class="category-card" data-category="خودرو">
+                    <span class="category-icon cyan">🚘</span><strong>خودرو</strong><small>مکانیک و خدمات</small>
+                </button>
+                <button class="category-card" data-category="سایر">
+                    <span class="category-icon violet">💼</span><strong>سایر مشاغل</strong><small>تخصص‌های دیگر</small>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section listings-section" id="businesses">
+        <div class="container">
+            <div class="section-heading listings-heading reveal">
+                <div>
+                    <span class="eyebrow">آشنایی با متخصصان</span>
+                    <h2>مشاغل و متخصصان</h2>
+                    <p>کسب‌وکار موردنظرت را پیدا کن.</p>
+                </div>
+                <span class="results-count" id="resultsCount">۰ مورد</span>
+            </div>
+
+            <div class="filter-bar">
+                <label class="filter-search">
+                    <span>⌕</span>
+                    <input id="filterInput" type="search" placeholder="نام، تخصص یا شهر...">
+                </label>
+                <select id="sortSelect" aria-label="مرتب‌سازی مشاغل">
+                    <option value="newest">جدیدترین</option>
+                    <option value="name">ترتیب نام</option>
+                </select>
+            </div>
+
+            <div class="business-grid" id="businessGrid"></div>
+
+            <div class="empty-state hidden" id="emptyState">
+                <span>🔎</span>
+                <h3>موردی پیدا نشد!</h3>
+                <p>عبارت جست‌وجو یا دسته‌بندی را تغییر بده.</p>
+                <button class="btn btn-outline" id="resetSearch">نمایش همه مشاغل</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="join-section" id="about">
+        <div class="container join-box reveal">
+            <div class="join-icon">🚀</div>
+            <div>
+                <span class="eyebrow">وقت دیده‌شدن توست</span>
+                <h2>صاحب کسب‌وکاری؟ خودت را معرفی کن!</h2>
+                <p>اطلاعات شغلی‌ات را ثبت کن تا در فهرست کاربلد نمایش داده شوی.</p>
+            </div>
+            <button class="btn btn-light" id="joinButton">ثبت کسب‌وکار من +</button>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="#home" class="logo"><span class="logo-icon">✦</span> کاربلد<span class="logo-dot">.</span></a>
+        <p>پیدا کردن تخصص‌ها، ساده‌تر از همیشه 💜</p>
+        <span>© <span id="currentYear"></span> کاربلد</span>
+    </div>
+</footer>
+
+<!-- پنل مدیریت و ثبت کسب‌وکار -->
+<div class="modal hidden" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card">
+        <div class="modal-header">
+            <div>
+                <span class="eyebrow">مدیریت کاربلد</span>
+                <h2 id="modalTitle">ثبت کسب‌وکار جدید</h2>
+            </div>
+            <button class="close-modal" id="closeModal" aria-label="بستن">×</button>
+        </div>
+
+        <form id="businessForm">
+            <div class="form-grid">
+                <label>نام کسب‌وکار یا فرد *
+                    <input name="name" required maxlength="70" placeholder="مثلاً تعمیرات فنی رضایی">
+                </label>
+                <label>نام مسئول یا متخصص
+                    <input name="owner" maxlength="60" placeholder="نام و نام خانوادگی">
+                </label>
+                <label>دسته‌بندی *
+                    <select name="category" required>
+                        <option value="">انتخاب دسته‌بندی</option>
+                        <option value="فنی">فنی و تعمیرات</option>
+                        <option value="زیبایی">زیبایی و آرایش</option>
+                        <option value="آموزش">آموزش</option>
+                        <option value="سلامت">سلامت</option>
+                        <option value="فروشگاه">فروشگاه</option>
+                        <option value="خودرو">خودرو</option>
+                        <option value="سایر">سایر مشاغل</option>
+                    </select>
+                </label>
+                <label>شهر یا منطقه *
+                    <input name="city" required maxlength="60" placeholder="مثلاً نیشابور">
+                </label>
+                <label>شماره تماس
+                    <input name="phone" type="tel" maxlength="20" placeholder="مثلاً 09123456789">
+                </label>
+                <label>ایموجی معرفی
+                    <select name="icon">
+                        <option value="🏢">🏢 عمومی</option>
+                        <option value="🔧">🔧 فنی</option>
+                        <option value="💇">💇 زیبایی</option>
+                        <option value="📚">📚 آموزش</option>
+                        <option value="🩺">🩺 سلامت</option>
+                        <option value="🛒">🛒 فروشگاه</option>
+                        <option value="🚘">🚘 خودرو</option>
+                        <option value="💼">💼 سایر</option>
+                    </select>
+                </label>
+                <label class="full-width">نشانی
+                    <input name="address" maxlength="180" placeholder="نشانی یا محدوده فعالیت">
+                </label>
+                <label class="full-width">توضیحات *
+                    <textarea name="description" required maxlength="300" rows="3" placeholder="خدمات و تخصص خود را معرفی کن..."></textarea>
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline" id="cancelForm">انصراف</button>
+                <button type="submit" class="btn btn-primary">ثبت کسب‌وکار</button>
+            </div>
+        </form>
+
+        <div class="admin-note">
+            ⚠️ این نسخه آزمایشی است؛ اطلاعات فقط در همین مرورگر ذخیره می‌شوند.
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
