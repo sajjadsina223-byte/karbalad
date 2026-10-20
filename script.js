@@ -1,640 +1,504 @@
 
 "use strict";
 
-const STORAGE_KEY = "karbalad_businesses_v1";
+document.addEventListener("DOMContentLoaded", () => {
+  const STORAGE_KEY = "karbalad_businesses_v2";
 
-const sampleBusinesses = [
+  const sampleBusinesses = [
     {
-        id: "sample-1",
-        name: "تعمیرات فنی نوین",
-        owner: "علی رضایی",
-        category: "فنی",
-        city: "نیشابور",
-        phone: "",
-        address: "مرکز شهر",
-        icon: "🔧",
-        description: "ارائه خدمات تعمیراتی و فنی با تمرکز بر کیفیت کار و پاسخ‌گویی مناسب.",
-        createdAt: 3
+      id: "sample-1",
+      name: "خدمات فنی امید",
+      category: "فنی و تعمیرات",
+      location: "نمونه نمایشی",
+      phone: "",
+      description: "نمونه‌ای برای معرفی خدمات فنی و تعمیرات عمومی منزل.",
+      icon: "🛠️",
+      sample: true
     },
     {
-        id: "sample-2",
-        name: "سالن زیبایی ماه‌چهره",
-        owner: "مریم احمدی",
-        category: "زیبایی",
-        city: "نیشابور",
-        phone: "",
-        address: "مرکز شهر",
-        icon: "💇",
-        description: "خدمات آرایش و زیبایی، مراقبت مو و ارائه مشاوره زیبایی.",
-        createdAt: 2
+      id: "sample-2",
+      name: "آموزشگاه دانش",
+      category: "آموزش",
+      location: "نمونه نمایشی",
+      phone: "",
+      description: "نمونه نمایشی برای معرفی کلاس‌های آموزشی و تقویتی.",
+      icon: "📚",
+      sample: true
     },
     {
-        id: "sample-3",
-        name: "آموزشگاه دانش‌گستر",
-        owner: "فاطمه محمدی",
-        category: "آموزش",
-        city: "نیشابور",
-        phone: "",
-        address: "محدوده مرکزی",
-        icon: "📚",
-        description: "آموزش و یادگیری مهارت‌های درسی و برگزاری کلاس‌های آموزشی.",
-        createdAt: 1
+      id: "sample-3",
+      name: "مرکز زیبایی بهار",
+      category: "زیبایی و سلامت",
+      location: "نمونه نمایشی",
+      phone: "",
+      description: "نمونه‌ای برای معرفی خدمات زیبایی و مراقبت شخصی.",
+      icon: "💇",
+      sample: true
     },
     {
-        id: "sample-4",
-        name: "فروشگاه رنگین‌کمان",
-        owner: "حسین کریمی",
-        category: "فروشگاه",
-        city: "نیشابور",
-        phone: "",
-        address: "بازار شهر",
-        icon: "🛒",
-        description: "فروش محصولات متنوع و ارائه خدمات مناسب به مشتریان.",
-        createdAt: 4
+      id: "sample-4",
+      name: "خدمات خانه آرام",
+      category: "ساختمان و منزل",
+      location: "نمونه نمایشی",
+      phone: "",
+      description: "نمونه نمایشی برای معرفی خدمات منزل و ساختمان.",
+      icon: "🏠",
+      sample: true
     },
     {
-        id: "sample-5",
-        name: "مرکز خدمات خودرو",
-        owner: "رضا موسوی",
-        category: "خودرو",
-        city: "نیشابور",
-        phone: "",
-        address: "حاشیه شهر",
-        icon: "🚘",
-        description: "خدمات عمومی خودرو و بررسی مشکلات فنی.",
-        createdAt: 5
+      id: "sample-5",
+      name: "خدمات خودرویی سریع",
+      category: "خدمات خودرو",
+      location: "نمونه نمایشی",
+      phone: "",
+      description: "نمونه‌ای برای معرفی سرویس و تعمیر خودرو.",
+      icon: "🚗",
+      sample: true
     },
     {
-        id: "sample-6",
-        name: "مشاوره و خدمات سلامت",
-        owner: "تیم خدمات سلامت",
-        category: "سلامت",
-        city: "نیشابور",
-        phone: "",
-        address: "مرکز شهر",
-        icon: "🩺",
-        description: "معرفی خدمات مرتبط با سلامت؛ اطلاعات تخصص و مجوزها را پیش از مراجعه بررسی کنید.",
-        createdAt: 6
+      id: "sample-6",
+      name: "خدمات محلی همراه",
+      category: "سایر خدمات",
+      location: "نمونه نمایشی",
+      phone: "",
+      description: "نمونه‌ای برای معرفی خدمات عمومی و محلی.",
+      icon: "✨",
+      sample: true
     }
-];
+  ];
 
-const businessGrid = document.getElementById("businessGrid");
-const categoryGrid = document.getElementById("categoryGrid");
-const searchForm = document.getElementById("searchForm");
-const searchInput = document.getElementById("searchInput");
-const filterInput = document.getElementById("filterInput");
-const sortSelect = document.getElementById("sortSelect");
-const resultsCount = document.getElementById("resultsCount");
-const statBusinesses = document.getElementById("statBusinesses");
-const emptyState = document.getElementById("emptyState");
-const resetSearch = document.getElementById("resetSearch");
+  const businessGrid = document.getElementById("businessGrid");
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("searchInput");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const resultsDescription = document.getElementById("resultsDescription");
+  const emptyState = document.getElementById("emptyState");
+  const businessCount = document.getElementById("businessCount");
 
-const adminModal = document.getElementById("adminModal");
-const adminOpen = document.getElementById("adminOpen");
-const closeModal = document.getElementById("closeModal");
-const cancelForm = document.getElementById("cancelForm");
-const businessForm = document.getElementById("businessForm");
-const joinButton = document.getElementById("joinButton");
-const toast = document.getElementById("toast");
+  const menuToggle = document.getElementById("menuToggle");
+  const mainNav = document.getElementById("mainNav");
 
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
+  const registerModal = document.getElementById("registerModal");
+  const registerForm = document.getElementById("registerForm");
+  const closeModal = document.getElementById("closeModal");
+  const toast = document.getElementById("toast");
 
-let selectedCategory = "همه";
-let searchTerm = "";
-let toastTimeout = null;
+  let businesses = loadBusinesses();
+  let activeCategory = "";
+  let searchTerm = "";
+  let toastTimeout;
 
-// خواندن اطلاعات ذخیره‌شده
-function loadBusinesses() {
+  function loadBusinesses() {
     try {
-        const stored = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(STORAGE_KEY);
 
-        if (stored !== null) {
-            const parsed = JSON.parse(stored);
+      if (saved) {
+        const parsed = JSON.parse(saved);
 
-            if (Array.isArray(parsed)) {
-                return parsed;
-            }
+        if (Array.isArray(parsed)) {
+          return parsed;
         }
+      }
     } catch (error) {
-        console.error("خطا در خواندن اطلاعات:", error);
+      console.warn("خواندن اطلاعات ذخیره‌شده امکان‌پذیر نبود.", error);
     }
 
     return sampleBusinesses.map(item => ({ ...item }));
-}
+  }
 
-let businesses = loadBusinesses();
-
-// ذخیره اطلاعات در مرورگر
-function saveBusinesses() {
+  function saveBusinesses() {
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(businesses));
-        return true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(businesses));
+      return true;
     } catch (error) {
-        console.error("خطا در ذخیره اطلاعات:", error);
-        showToast("ذخیره اطلاعات ناموفق بود. فضای مرورگر را بررسی کن.");
-        return false;
+      console.warn("ذخیره اطلاعات امکان‌پذیر نبود.", error);
+      showToast("ذخیره اطلاعات در مرورگر امکان‌پذیر نیست.");
+      return false;
     }
-}
+  }
 
-// جلوگیری از تفسیر اطلاعات ورودی به‌عنوان HTML
-function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, character => {
-        const entities = {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        };
+  function normalizeText(value) {
+    return String(value || "")
+      .toLocaleLowerCase("fa")
+      .replace(/ي/g, "ی")
+      .replace(/ك/g, "ک")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
 
-        return entities[character];
-    });
-}
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
 
-// تبدیل اعداد به فارسی
-function toPersianNumber(value) {
-    return Number(value).toLocaleString("fa-IR");
-}
+    if (className) {
+      element.className = className;
+    }
 
-// پیام کوتاه پایین صفحه
-function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add("show");
+    if (text !== undefined) {
+      element.textContent = text;
+    }
 
-    clearTimeout(toastTimeout);
+    return element;
+  }
 
-    toastTimeout = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);
-}
-
-// کلاس رنگی کارت
-function getCoverClass(category) {
-    const classes = {
-        "فنی": "orange-cover",
-        "زیبایی": "pink-cover",
-        "آموزش": "blue-cover",
-        "سلامت": "green-cover",
-        "فروشگاه": "orange-cover",
-        "خودرو": "cyan-cover",
-        "سایر": "blue-cover"
+  function getBusinessIcon(category) {
+    const icons = {
+      "فنی و تعمیرات": "🛠️",
+      "زیبایی و سلامت": "💇",
+      "آموزش": "📚",
+      "ساختمان و منزل": "🏠",
+      "خدمات خودرو": "🚗",
+      "سایر خدمات": "✨"
     };
 
-    return classes[category] || "";
-}
+    return icons[category] || "🏪";
+  }
 
-// فیلتر و مرتب‌سازی مشاغل
-function getFilteredBusinesses() {
-    const term = searchTerm.trim().toLocaleLowerCase("fa");
+  function createBusinessCard(business) {
+    const card = createElement("article", "business-card");
+    const top = createElement("div", "business-card-top");
+    const avatar = createElement(
+      "div",
+      "business-avatar",
+      business.icon || getBusinessIcon(business.category)
+    );
 
-    let filtered = businesses.filter(business => {
-        const categoryMatches =
-            selectedCategory === "همه" ||
-            business.category === selectedCategory;
+    avatar.setAttribute("aria-hidden", "true");
 
-        const searchableText = [
-            business.name,
-            business.owner,
-            business.category,
-            business.city,
-            business.address,
-            business.description
-        ].join(" ").toLocaleLowerCase("fa");
+    const info = createElement("div", "business-info");
+    const title = createElement("h3", "", business.name);
+    const category = createElement(
+      "span",
+      "business-category",
+      business.category
+    );
 
-        const searchMatches = !term || searchableText.includes(term);
+    info.append(title, category);
+    top.append(avatar, info);
 
-        return categoryMatches && searchMatches;
+    const description = createElement(
+      "p",
+      "business-description",
+      business.description
+    );
+
+    const meta = createElement("div", "business-meta");
+    const location = createElement(
+      "span",
+      "",
+      "📍 " + (business.location || "مکان ثبت نشده")
+    );
+
+    meta.append(location);
+
+    if (business.phone) {
+      const phoneRow = createElement("span", "");
+      const phoneLabel = createElement("span", "", "☎️");
+      const phoneLink = createElement("a", "business-phone", business.phone);
+
+      phoneLink.href = "tel:" + business.phone.replace(/[^\d+]/g, "");
+      phoneRow.append(phoneLabel, phoneLink);
+      meta.append(phoneRow);
+    }
+
+    if (business.sample) {
+      meta.append(createElement("span", "sample-label", "ℹ️ آگهی نمونه"));
+    }
+
+    card.append(top, description, meta);
+    return card;
+  }
+
+  function renderBusinesses() {
+    if (!businessGrid) return;
+
+    const filtered = businesses.filter(business => {
+      const searchableText = normalizeText([
+        business.name,
+        business.category,
+        business.location,
+        business.description
+      ].join(" "));
+
+      const matchesSearch =
+        !searchTerm || searchableText.includes(searchTerm);
+
+      const matchesCategory =
+        !activeCategory || business.category === activeCategory;
+
+      return matchesSearch && matchesCategory;
     });
 
-    if (sortSelect.value === "name") {
-        filtered.sort((a, b) =>
-            String(a.name).localeCompare(String(b.name), "fa")
-        );
-    } else {
-        filtered.sort((a, b) =>
-            Number(b.createdAt || 0) - Number(a.createdAt || 0)
-        );
-    }
+    businessGrid.replaceChildren();
 
-    return filtered;
-}
-
-// ساخت کارت هر کسب‌وکار
-function createBusinessCard(business) {
-    const name = escapeHTML(business.name);
-    const owner = escapeHTML(business.owner || "معرفی کسب‌وکار");
-    const category = escapeHTML(business.category);
-    const city = escapeHTML(business.city);
-    const address = escapeHTML(business.address || "نشانی ثبت نشده");
-    const description = escapeHTML(business.description);
-    const icon = escapeHTML(business.icon || "🏢");
-    const coverClass = getCoverClass(business.category);
-    const phone = String(business.phone || "").trim();
-
-    const safePhone = /^[+0-9۰-۹٠-٩()\-\s]{7,20}$/.test(phone)
-        ? phone.replace(/[^\d+]/g, "")
-            .replace(/[۰-۹]/g, digit =>
-                String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit))
-            )
-            .replace(/[٠-٩]/g, digit =>
-                String("٠١٢٣٤٥٦٧٨٩".indexOf(digit))
-            )
-        : "";
-
-    const phoneAction = safePhone
-        ? `<a class="btn card-phone" href="tel:${escapeHTML(safePhone)}">☎ تماس</a>`
-        : `<button class="btn card-phone no-phone" type="button">☎ تماس</button>`;
-
-    const deleteButton = `
-        <button
-            class="delete-listing"
-            type="button"
-            data-delete-id="${escapeHTML(business.id)}">
-            🗑 حذف آگهی از این مرورگر
-        </button>
-    `;
-
-    return `
-        <article class="business-card">
-            <div class="card-cover ${coverClass}">
-                <span class="card-category">${category}</span>
-                <span class="card-emoji">${icon}</span>
-            </div>
-
-            <div class="card-body">
-                <h3>${name}</h3>
-                <p class="card-owner">${owner}</p>
-                <p class="card-description">${description}</p>
-
-                <div class="card-location">
-                    <span>📍</span>
-                    <span>${city} · ${address}</span>
-                </div>
-
-                <div class="card-actions">
-                    ${phoneAction}
-                    <button
-                        class="btn btn-outline detail-button"
-                        type="button"
-                        data-detail-id="${escapeHTML(business.id)}">
-                        جزئیات
-                    </button>
-                </div>
-
-                <div class="admin-delete-slot"></div>
-            </div>
-        </article>
-    `;
-}
-
-// نمایش کارت‌ها
-function renderBusinesses() {
-    const filtered = getFilteredBusinesses();
-
-    businessGrid.innerHTML = filtered
-        .map(createBusinessCard)
-        .join("");
-
-    resultsCount.textContent = `${toPersianNumber(filtered.length)} مورد`;
-    statBusinesses.textContent = toPersianNumber(businesses.length);
-
-    emptyState.classList.toggle("hidden", filtered.length !== 0);
-
-    // دکمه حذف فقط در حالت مدیریت ظاهر می‌شود
-    document.querySelectorAll(".admin-delete-slot").forEach(slot => {
-        if (adminMode) {
-            slot.innerHTML = slot.closest(".business-card")
-                .querySelector("[data-detail-id]")
-                ? ""
-                : "";
-        }
+    filtered.forEach(business => {
+      businessGrid.append(createBusinessCard(business));
     });
 
-    if (adminMode) {
-        document.querySelectorAll(".business-card").forEach(card => {
-            const detailButton = card.querySelector("[data-detail-id]");
-            const slot = card.querySelector(".admin-delete-slot");
-
-            if (detailButton && slot) {
-                slot.innerHTML = `
-                    <button
-                        class="delete-listing"
-                        type="button"
-                        data-delete-id="${detailButton.dataset.detailId}">
-                        🗑 حذف آگهی از این مرورگر
-                    </button>
-                `;
-            }
-        });
+    if (emptyState) {
+      emptyState.classList.toggle("hidden", filtered.length > 0);
     }
 
-    observeReveals();
-}
-
-// پنل مدیریت آزمایشی
-let adminMode = false;
-
-function openModal() {
-    adminModal.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-
-    setTimeout(() => {
-        const firstInput = businessForm.querySelector("input");
-        if (firstInput) firstInput.focus();
-    }, 100);
-}
-
-function closeModalWindow() {
-    adminModal.classList.add("hidden");
-    document.body.style.overflow = "";
-}
-
-adminOpen.addEventListener("click", () => {
-    adminMode = !adminMode;
-
-    if (adminMode) {
-        adminOpen.textContent = "✓ خروج از مدیریت";
-        showToast("حالت مدیریت آزمایشی فعال شد.");
-        renderBusinesses();
-    } else {
-        adminOpen.textContent = "⚙ پنل مدیریت";
-        showToast("از حالت مدیریت خارج شدی.");
-        renderBusinesses();
+    if (resultsDescription) {
+      if (searchTerm || activeCategory) {
+        resultsDescription.textContent =
+          `${filtered.length.toLocaleString("fa-IR")} مورد مطابق جست‌وجو پیدا شد.`;
+      } else {
+        resultsDescription.textContent =
+          "چند نمونه برای آشنایی با امکانات سامانه";
+      }
     }
 
-    openModal();
-});
-
-closeModal.addEventListener("click", closeModalWindow);
-cancelForm.addEventListener("click", closeModalWindow);
-
-adminModal.addEventListener("click", event => {
-    if (event.target.dataset.close === "true") {
-        closeModalWindow();
+    if (businessCount) {
+      businessCount.textContent = businesses.length.toLocaleString("fa-IR");
     }
-});
 
-document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !adminModal.classList.contains("hidden")) {
-        closeModalWindow();
+    document.querySelectorAll(".category-card").forEach(button => {
+      button.classList.toggle(
+        "selected",
+        button.dataset.category === activeCategory
+      );
+    });
+
+    if (categoryFilter) {
+      categoryFilter.value = activeCategory;
     }
-});
+  }
 
-joinButton.addEventListener("click", openModal);
+  function applySearch() {
+    searchTerm = normalizeText(searchInput ? searchInput.value : "");
+    renderBusinesses();
 
-// ثبت کسب‌وکار جدید
-businessForm.addEventListener("submit", event => {
-    event.preventDefault();
+    const section = document.getElementById("businesses");
 
-    const formData = new FormData(businessForm);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
-    const name = String(formData.get("name") || "").trim();
-    const owner = String(formData.get("owner") || "").trim();
-    const category = String(formData.get("category") || "").trim();
-    const city = String(formData.get("city") || "").trim();
-    const phone = String(formData.get("phone") || "").trim();
-    const address = String(formData.get("address") || "").trim();
-    const description = String(formData.get("description") || "").trim();
-    const icon = String(formData.get("icon") || "🏢");
+  function resetSearch() {
+    searchTerm = "";
+    activeCategory = "";
 
-    if (!name || !category || !city || !description) {
+    if (searchInput) searchInput.value = "";
+    if (categoryFilter) categoryFilter.value = "";
+
+    renderBusinesses();
+  }
+
+  function showToast(message) {
+    if (!toast) return;
+
+    window.clearTimeout(toastTimeout);
+    toast.textContent = message;
+    toast.classList.remove("hidden");
+
+    toastTimeout = window.setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 3200);
+  }
+
+  function openRegistrationModal() {
+    if (!registerModal) return;
+
+    registerModal.classList.remove("hidden");
+    document.body.classList.add("modal-open");
+
+    const firstInput = registerForm
+      ? registerForm.querySelector('input[name="name"]')
+      : null;
+
+    if (firstInput) {
+      window.setTimeout(() => firstInput.focus(), 50);
+    }
+
+    closeMobileMenu();
+  }
+
+  function closeRegistrationModal() {
+    if (!registerModal) return;
+
+    registerModal.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  }
+
+  function closeMobileMenu() {
+    if (mainNav) mainNav.classList.remove("open");
+
+    if (menuToggle) {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "باز کردن منو");
+    }
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener("submit", event => {
+      event.preventDefault();
+      applySearch();
+    });
+  }
+
+  document.querySelectorAll(".hint").forEach(button => {
+    button.addEventListener("click", () => {
+      if (searchInput) {
+        searchInput.value = button.dataset.search || "";
+      }
+
+      applySearch();
+    });
+  });
+
+  document.querySelectorAll(".category-card").forEach(button => {
+    button.addEventListener("click", () => {
+      activeCategory =
+        activeCategory === button.dataset.category
+          ? ""
+          : button.dataset.category;
+
+      searchTerm = "";
+
+      if (searchInput) searchInput.value = "";
+
+      renderBusinesses();
+
+      const section = document.getElementById("businesses");
+
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+
+  if (categoryFilter) {
+    categoryFilter.addEventListener("change", () => {
+      activeCategory = categoryFilter.value;
+      searchTerm = "";
+
+      if (searchInput) searchInput.value = "";
+
+      renderBusinesses();
+    });
+  }
+
+  const showAllCategories = document.getElementById("showAllCategories");
+
+  if (showAllCategories) {
+    showAllCategories.addEventListener("click", () => {
+      resetSearch();
+
+      const section = document.getElementById("businesses");
+
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
+  const resetSearchButton = document.getElementById("resetSearch");
+
+  if (resetSearchButton) {
+    resetSearchButton.addEventListener("click", resetSearch);
+  }
+
+  const openRegister = document.getElementById("openRegister");
+  const joinButton = document.getElementById("joinButton");
+  const footerRegister = document.getElementById("footerRegister");
+
+  [openRegister, joinButton, footerRegister].forEach(button => {
+    if (button) {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        openRegistrationModal();
+      });
+    }
+  });
+
+  if (closeModal) {
+    closeModal.addEventListener("click", closeRegistrationModal);
+  }
+
+  if (registerModal) {
+    registerModal.querySelectorAll("[data-close-modal]").forEach(element => {
+      element.addEventListener("click", closeRegistrationModal);
+    });
+  }
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      closeRegistrationModal();
+      closeMobileMenu();
+    }
+  });
+
+  if (menuToggle && mainNav) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mainNav.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "بستن منو" : "باز کردن منو"
+      );
+    });
+
+    mainNav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", closeMobileMenu);
+    });
+  }
+
+  if (registerForm) {
+    registerForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (!registerForm.reportValidity()) return;
+
+      const formData = new FormData(registerForm);
+
+      const business = {
+        id: "business-" + Date.now().toString(),
+        name: String(formData.get("name") || "").trim(),
+        category: String(formData.get("category") || "").trim(),
+        location: String(formData.get("location") || "").trim(),
+        phone: String(formData.get("phone") || "").trim(),
+        description: String(formData.get("description") || "").trim(),
+        icon: getBusinessIcon(String(formData.get("category") || "")),
+        sample: false
+      };
+
+      if (
+        !business.name ||
+        !business.category ||
+        !business.location ||
+        !business.description
+      ) {
         showToast("لطفاً فیلدهای ضروری را تکمیل کن.");
         return;
-    }
+      }
 
-    if (phone && !/^[+0-9۰-۹٠-٩()\-\s]{7,20}$/.test(phone)) {
-        showToast("شماره تماس واردشده معتبر نیست.");
-        return;
-    }
+      businesses.unshift(business);
 
-    const newBusiness = {
-        id: "biz-" + Date.now().toString(36) + "-" +
-            Math.random().toString(36).slice(2, 7),
-        name,
-        owner,
-        category,
-        city,
-        phone,
-        address,
-        description,
-        icon,
-        createdAt: Date.now()
-    };
-
-    businesses.unshift(newBusiness);
-
-    if (!saveBusinesses()) {
+      if (!saveBusinesses()) {
         businesses.shift();
         return;
-    }
+      }
 
-    selectedCategory = "همه";
-    searchTerm = "";
-    searchInput.value = "";
-    filterInput.value = "";
+      registerForm.reset();
+      closeRegistrationModal();
 
-    updateCategoryButtons();
-    renderBusinesses();
-    businessForm.reset();
-    closeModalWindow();
+      searchTerm = "";
+      activeCategory = "";
 
-    document.getElementById("businesses").scrollIntoView({
-        behavior: "smooth"
+      if (searchInput) searchInput.value = "";
+
+      renderBusinesses();
+      showToast("آگهی در همین مرورگر ثبت شد.");
+
+      const section = document.getElementById("businesses");
+
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
+  }
 
-    showToast("کسب‌وکار با موفقیت در این مرورگر ثبت شد.");
+  renderBusinesses();
 });
-
-// کلیک روی دسته‌بندی‌ها
-categoryGrid.addEventListener("click", event => {
-    const button = event.target.closest("[data-category]");
-
-    if (!button) return;
-
-    selectedCategory = button.dataset.category;
-    updateCategoryButtons();
-    renderBusinesses();
-
-    document.getElementById("businesses").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-});
-
-function updateCategoryButtons() {
-    document.querySelectorAll(".category-card").forEach(button => {
-        button.classList.toggle(
-            "active",
-            button.dataset.category === selectedCategory
-        );
-    });
-}
-
-// جست‌وجوی اصلی
-searchForm.addEventListener("submit", event => {
-    event.preventDefault();
-    searchTerm = searchInput.value.trim();
-    filterInput.value = searchInput.value;
-    renderBusinesses();
-
-    document.getElementById("businesses").scrollIntoView({
-        behavior: "smooth"
-    });
-});
-
-// جست‌وجوی زنده در فهرست
-filterInput.addEventListener("input", () => {
-    searchTerm = filterInput.value;
-    searchInput.value = filterInput.value;
-    renderBusinesses();
-});
-
-sortSelect.addEventListener("change", renderBusinesses);
-
-// جست‌وجوهای محبوب
-document.querySelectorAll(".search-tag").forEach(button => {
-    button.addEventListener("click", () => {
-        searchInput.value = button.dataset.search;
-        filterInput.value = button.dataset.search;
-        searchTerm = button.dataset.search;
-        selectedCategory = "همه";
-
-        updateCategoryButtons();
-        renderBusinesses();
-
-        document.getElementById("businesses").scrollIntoView({
-            behavior: "smooth"
-        });
-    });
-});
-
-// نمایش جزئیات
-businessGrid.addEventListener("click", event => {
-    const detailButton = event.target.closest("[data-detail-id]");
-    const noPhoneButton = event.target.closest(".no-phone");
-    const deleteButton = event.target.closest("[data-delete-id]");
-
-    if (noPhoneButton) {
-        showToast("برای این کسب‌وکار هنوز شماره تماس ثبت نشده است.");
-        return;
-    }
-
-    if (detailButton) {
-        const business = businesses.find(
-            item => item.id === detailButton.dataset.detailId
-        );
-
-        if (!business) return;
-
-        const message = [
-            business.name,
-            "دسته‌بندی: " + business.category,
-            "مسئول: " + (business.owner || "ثبت نشده"),
-            "شهر: " + business.city,
-            "نشانی: " + (business.address || "ثبت نشده"),
-            "تماس: " + (business.phone || "ثبت نشده"),
-            "توضیحات: " + business.description
-        ].join("\n");
-
-        alert(message);
-        return;
-    }
-
-    if (deleteButton) {
-        if (!adminMode) {
-            showToast("برای حذف آگهی، ابتدا حالت مدیریت را فعال کن.");
-            return;
-        }
-
-        const business = businesses.find(
-            item => item.id === deleteButton.dataset.deleteId
-        );
-
-        if (!business) return;
-
-        const confirmed = confirm(
-            `آیا می‌خواهی آگهی «${business.name}» را از این مرورگر حذف کنی؟`
-        );
-
-        if (!confirmed) return;
-
-        const previousBusinesses = businesses;
-        businesses = businesses.filter(
-            item => item.id !== deleteButton.dataset.deleteId
-        );
-
-        if (!saveBusinesses()) {
-            businesses = previousBusinesses;
-            return;
-        }
-
-        renderBusinesses();
-        showToast("آگهی از این مرورگر حذف شد.");
-    }
-});
-
-// دکمه بازنشانی جست‌وجو
-resetSearch.addEventListener("click", () => {
-    selectedCategory = "همه";
-    searchTerm = "";
-    searchInput.value = "";
-    filterInput.value = "";
-    sortSelect.value = "newest";
-
-    updateCategoryButtons();
-    renderBusinesses();
-});
-
-// منوی موبایل
-menuToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.textContent = isOpen ? "×" : "☰";
-});
-
-navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.textContent = "☰";
-    });
-});
-
-// انیمیشن ورود بخش‌ها هنگام اسکرول
-let revealObserver = null;
-
-function observeReveals() {
-    if (!("IntersectionObserver" in window)) {
-        document.querySelectorAll(".reveal").forEach(element => {
-            element.classList.add("visible");
-        });
-        return;
-    }
-
-    if (!revealObserver) {
-        revealObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.12
-        });
-    }
-
-    document.querySelectorAll(".reveal:not(.visible)").forEach(element => {
-        revealObserver.observe(element);
-    });
-}
-
-// سال جاری
-document.getElementById("currentYear").textContent =
-    new Date().getFullYear();
-
-// راه‌اندازی اولیه
-updateCategoryButtons();
-renderBusinesses();
-observeReveals();
