@@ -1239,3 +1239,39 @@ textarea:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* تنظیم موقعیت منوی اصلی در هدر */
+@media (min-width: 701px) {
+  .nav-wrapper {
+    position: relative;
+    justify-content: space-between;
+  }
+
+  .main-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+    gap: 22px;
+    white-space: nowrap;
+  }
+
+  .brand {
+    position: relative;
+    z-index: 2;
+  }
+
+  .main-nav .nav-register {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .main-nav {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 14px;
+    left: 14px;
+    transform: none;
+  }
+}
