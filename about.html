@@ -4,69 +4,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="معرفی سامانه کاربلد؛ راهی آسان برای پیدا کردن مشاغل و خدمات">
-  <title>درباره کاربلد | سامانه معرفی مشاغل</title>
+  <meta name="theme-color" content="#6554d9">
+  <meta name="description" content="درباره سامانه کاربلد؛ پروژه آموزشی معرفی مشاغل و خدمات">
+  <title>درباره ما | کاربلد</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .about-page {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 24px;
-      font-family: inherit;
-    }
-    .about-hero {
-      padding: 50px 25px;
-      border-radius: 24px;
-      text-align: center;
-      background: linear-gradient(135deg, #5636c9, #e45a9d);
-      color: white;
-    }
-    .about-hero h1 { font-size: clamp(28px, 5vw, 44px); }
-    .about-hero p {
-      max-width: 650px;
-      margin: 16px auto;
-      line-height: 2;
-    }
-    .about-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-      margin-top: 25px;
-    }
-    .about-card {
-      padding: 24px;
-      border-radius: 18px;
-      background: var(--card, #fff);
-      border: 1px solid #e7e4ef;
-      line-height: 2;
-    }
-    .about-card h2 { font-size: 20px; }
-    .about-note {
-      margin-top: 24px;
-      padding: 20px;
-      border-radius: 16px;
-      background: #f3efff;
-      color: #37236e;
-      line-height: 2;
-    }
-    .about-back {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 22px;
-      background: #5636c9;
-      color: white;
-      border-radius: 12px;
-      text-decoration: none;
-    }
-  </style>
 </head>
 <body>
-  <main class="about-page">
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a class="brand" href="index.html">
+        <span class="brand-icon">ک</span>
+        <span>کاربلد<span class="brand-dot">.</span></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="باز کردن منو" aria-expanded="false">☰</button>
+
+      <nav class="main-nav" id="mainNav">
+        <a class="nav-link" href="index.html">صفحه اصلی</a>
+        <a class="nav-link" href="index.html#categories">دسته‌بندی مشاغل</a>
+        <a class="nav-link" href="index.html#businesses">مشاغل</a>
+        <a class="nav-link active" href="about.html">درباره ما</a>
+        <a class="btn btn-primary nav-register" href="index.html#businesses">مشاهده مشاغل</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container about-page">
     <section class="about-hero">
       <h1>درباره سامانه کاربلد</h1>
       <p>
-        کاربلد یک ایده برای معرفی مشاغل و خدمات است که به افراد کمک می‌کند
-        آسان‌تر کسب‌وکارها و متخصصان موردنیاز خود را پیدا کنند.
+        کاربلد ایده‌ای برای آسان‌تر کردن پیدا کردن مشاغل و خدمات است.
+        هدف این پروژه، ایجاد یک فضای ساده و منظم برای آشنایی با کسب‌وکارهای گوناگون است.
       </p>
     </section>
 
@@ -74,43 +42,91 @@
       <article class="about-card">
         <h2>🎯 هدف پروژه</h2>
         <p>
-          ایجاد راهی ساده برای آشنایی مردم با مشاغل مختلف و دسترسی آسان‌تر
-          به ارائه‌دهندگان خدمات.
+          کمک به کاربران برای پیدا کردن سریع‌تر مشاغل و آشنایی با خدمات
+          موردنیازشان از طریق جست‌وجو و دسته‌بندی.
         </p>
       </article>
 
       <article class="about-card">
         <h2>🔎 جست‌وجوی آسان</h2>
         <p>
-          کاربران می‌توانند مشاغل موردنظر خود را جست‌وجو کنند و از دسته‌بندی‌ها
-          برای پیدا کردن گزینه‌های مرتبط استفاده کنند.
+          کاربران می‌توانند نام شغل یا خدمت را جست‌وجو کنند و از دسته‌بندی‌ها
+          برای محدودکردن نتایج استفاده کنند.
         </p>
       </article>
 
       <article class="about-card">
         <h2>📱 طراحی واکنش‌گرا</h2>
         <p>
-          ظاهر سایت برای استفاده در صفحه‌نمایش‌های مختلف، از جمله رایانه،
-          تبلت و تلفن همراه طراحی شده است.
+          طراحی سایت با هدف نمایش مناسب در رایانه، تبلت و تلفن همراه انجام شده است.
         </p>
       </article>
 
       <article class="about-card">
-        <h2>💡 ایده توسعه</h2>
+        <h2>💡 آینده کاربلد</h2>
         <p>
-          در نسخه‌های آینده می‌توان ثبت‌نام کاربران، تأیید مشاغل،
-          اطلاعات تماس و پنل مدیریت واقعی را به سامانه افزود.
+          در نسخه‌های آینده می‌توان ثبت‌نام کاربران، پنل مدیریت واقعی،
+          تأیید آگهی‌ها و پایگاه داده مشترک را به سامانه اضافه کرد.
         </p>
       </article>
     </section>
 
     <section class="about-note">
-      <strong>درباره این نسخه:</strong>
-      این پروژه یک نمونه اولیه آموزشی است. اطلاعات فعلی نمونه هستند
-      و امکانات ثبت و مدیریت هنوز به پایگاه داده مشترک متصل نشده‌اند.
+      <strong>توضیح نسخه فعلی:</strong>
+      کاربلد یک پروژه آموزشی و نمونه اولیه است. آگهی‌های اولیه نمایشی‌اند
+      و آگهی‌هایی که کاربران ثبت می‌کنند، در مرورگر همان دستگاه ذخیره می‌شوند.
+      این نسخه هنوز به سرور و پایگاه داده مشترک متصل نیست.
     </section>
 
-    <a class="about-back" href="index.html">بازگشت به صفحه اصلی ←</a>
+    <a class="btn btn-primary about-back" href="index.html">← بازگشت به صفحه اصلی</a>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-brand">
+        <a class="brand footer-logo" href="index.html">
+          <span class="brand-icon">ک</span>
+          <span>کاربلد<span class="brand-dot">.</span></span>
+        </a>
+        <p>راهی ساده برای آشنایی با مشاغل و خدمات موردنیاز.</p>
+      </div>
+
+      <div class="footer-links">
+        <h3>دسترسی سریع</h3>
+        <a href="index.html">صفحه اصلی</a>
+        <a href="index.html#categories">دسته‌بندی مشاغل</a>
+        <a href="index.html#businesses">فهرست مشاغل</a>
+      </div>
+
+      <div class="footer-links">
+        <h3>درباره پروژه</h3>
+        <a href="about.html">معرفی کاربلد</a>
+        <a href="index.html#businesses">مشاهده مشاغل</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© کاربلد - پروژه آموزشی معرفی مشاغل</span>
+      <a href="index.html">صفحه اصلی ←</a>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mainNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "بستن منو" : "باز کردن منو");
+    });
+
+    mainNav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mainNav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
 </body>
 </html>
